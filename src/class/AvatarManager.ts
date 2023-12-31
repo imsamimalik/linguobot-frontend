@@ -27,7 +27,7 @@ class AvatarManager {
         }
         const gltf = await loadGltf(url);
         gltf.scene.traverse(
-            (obj: { frustumCulled: boolean }) => (obj.frustumCulled = false)
+            (obj: THREE.Object3D) => (obj.frustumCulled = false)
         );
         this.scene.add(gltf.scene);
 
