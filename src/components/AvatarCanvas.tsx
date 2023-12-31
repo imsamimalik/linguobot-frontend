@@ -45,8 +45,8 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
   return (
       <div className="absolute" style={{ width: width, height: height }}>
           <Canvas camera={{ fov: 34, position: [0, 0.54, 1] }}>
-              <ambientLight />
-              <directionalLight />
+              <ambientLight intensity={2} />
+              <directionalLight position={[0, 0, 5]} intensity={2} />
               <OrbitControls
                   target={[0, 0.6, 0]}
                   enableDamping={false}
@@ -58,7 +58,7 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
               {isLoading && (
                   <Float floatIntensity={1} speed={1}>
                       <Text3D
-                          font={"../assets/fonts/Open_Sans_Condensed_Bold.json"}
+                          font={"/assets/fonts/Open_Sans_Condensed_Bold.json"}
                           scale={0.05}
                           position={[-0.1, 0.6, 0]}
                           bevelEnabled
