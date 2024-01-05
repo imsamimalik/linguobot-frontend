@@ -1,10 +1,10 @@
 import { AvatarCreator, EditorConfig } from "@readyplayerme/rpm-react-sdk";
 
 const config: EditorConfig = {
-  clearCache: true,
-  bodyType: "halfbody",
-  quickStart: false,
-  language: "en",
+    clearCache: true,
+    bodyType: "fullbody",
+    quickStart: false,
+    language: "en",
 };
 
 interface ReadyPlayerCreatorProps {

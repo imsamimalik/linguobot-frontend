@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import AvatarManager from "@/class/AvatarManager";
 import { OrbitControls } from "@react-three/drei";
-import FaceLandmarkManager from "@/class/FaceLandmarkManager";
+import PoseLandmarkManager from "@/class/PoseLandmarkManager";
 import { Float, Text3D } from "@react-three/drei";
 
 interface AvatarCanvasProps {
@@ -14,12 +14,12 @@ interface AvatarCanvasProps {
 const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
     const [scene, setScene] = useState<THREE.Scene | null>();
     const [isLoading, setIsLoading] = useState(true);
-    const avatarManagerRef = useRef<AvatarManager>(AvatarManager.getInstance());
+    // const avatarManagerRef = useRef<AvatarManager>(AvatarManager.getInstance());
     const requestRef = useRef(0);
 
     const animate = () => {
-        const results = FaceLandmarkManager.getInstance().getResults();
-        avatarManagerRef.current.updateFacialTransforms(results, true);
+        const results = PoseLandmarkManager.getInstance().getResults();
+        // avatarManagerRef.current.updateFacialTransforms(results, true);
         requestRef.current = requestAnimationFrame(animate);
     };
 
@@ -47,15 +47,15 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
 
     return (
         <div className="absolute" style={{ width: width, height: height }}>
-            <Canvas camera={{ fov: 34, position: [0, 0.54, 1] }}>
+            <Canvas camera={{ fov: 30, position: [0, 2, 5] }}>
                 <ambientLight intensity={2} />
                 <directionalLight position={[0, 0, 5]} intensity={2} />
                 <OrbitControls
                     target={[0, 0.6, 0]}
-                    enableDamping={false}
-                    enableRotate={false}
-                    enableZoom={false}
-                    enablePan={false}
+                    enableDamping={true}
+                    enableRotate={true}
+                    enableZoom={true}
+                    enablePan={true}
                 />
                 {scene && <primitive object={scene} />}
                 {isLoading && (

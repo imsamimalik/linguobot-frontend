@@ -1,4 +1,4 @@
-import FaceLandmarkCanvas from "@/components/FaceLandmarkCanvas";
+import PoseLandmarkCanvas from "@/components/PoseLandmarkCanvas";
 
 const App = () => {
     return (
@@ -7,7 +7,7 @@ const App = () => {
                 LinguoBot Demo
             </h1>
             <div className="flex justify-center w-full">
-                <FaceLandmarkCanvas />
+                <PoseLandmarkCanvas />
             </div>
         </div>
     );
