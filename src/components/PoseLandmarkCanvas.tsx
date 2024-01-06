@@ -82,7 +82,7 @@ const PoseLandmarkCanvas = () => {
                     autoPlay={true}
                     playsInline={true}
                 >
-                    <source src="/assets/demo/battery.mp4" type="video/mp4" />
+                    <source src="/assets/demo/test2.mp4" type="video/mp4" />
                 </video>
                 {videoSize && (
                     <>
