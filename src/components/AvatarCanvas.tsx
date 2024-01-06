@@ -14,12 +14,12 @@ interface AvatarCanvasProps {
 const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
     const [scene, setScene] = useState<THREE.Scene | null>();
     const [isLoading, setIsLoading] = useState(true);
-    // const avatarManagerRef = useRef<AvatarManager>(AvatarManager.getInstance());
+    const avatarManagerRef = useRef<AvatarManager>(AvatarManager.getInstance());
     const requestRef = useRef(0);
 
     const animate = () => {
         const results = PoseLandmarkManager.getInstance().getResults();
-        // avatarManagerRef.current.updateFacialTransforms(results, true);
+        avatarManagerRef.current.animateBody(results);
         requestRef.current = requestAnimationFrame(animate);
     };
 
