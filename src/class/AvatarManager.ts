@@ -216,37 +216,35 @@ class AvatarManager {
             const poseLandmark = normalizedLandmarks[poseIndex]; //landmark
 
             if (glbObject && poseLandmark) {
-                // //! METHOD 1
-                // const pos = new THREE.Vector3(
-                //     poseLandmark.x,
-                //     poseLandmark.y,
-                //     poseLandmark.z
+                //! METHOD 1
+                const pos = new THREE.Vector3(
+                    poseLandmark.x,
+                    poseLandmark.y,
+                    poseLandmark.z
+                );
+                glbObject.position.copy(pos);
+
+                // // SHOULD WORK BUT DOESN'T
+                // const { translation, rotation } = decomposeMatrix(
+                //     glbObject.matrixWorld.toArray()
                 // );
-                // glbObject.position.copy(pos);
+                // const euler = new THREE.Euler(
+                //     rotation.x,
+                //     rotation.y,
+                //     rotation.z,
+                //     "ZYX"
+                // );
+                // const quaternion = new THREE.Quaternion().setFromEuler(euler);
+                // glbObject.quaternion.copy(quaternion);
 
-
-                
-                // SHOULD WORK BUT DOESN'T
-                const { translation, rotation } = decomposeMatrix(
-                    glbObject.matrixWorld.toArray()
-                );
-                const euler = new THREE.Euler(
-                    rotation.x,
-                    rotation.y,
-                    rotation.z,
-                    "ZYX"
-                );
-                const quaternion = new THREE.Quaternion().setFromEuler(euler);
-                glbObject.quaternion.copy(quaternion);
-
-                glbObject.position.lerp(
-                    new THREE.Vector3(
-                        translation.x,
-                        translation.y,
-                        translation.z
-                    ),
-                    0.9
-                );
+                // glbObject.position.lerp(
+                //     new THREE.Vector3(
+                //         translation.x,
+                //         translation.y,
+                //         translation.z
+                //     ),
+                //     0.9
+                // );
 
                 //! METHOD 2
                 // const { translation, rotation, scale } = decomposeMatrix(
