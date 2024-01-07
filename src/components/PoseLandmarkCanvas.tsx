@@ -3,21 +3,31 @@ import DrawLandmarkCanvas from "./DrawLandmarkCanvas";
 import AvatarCanvas from "./AvatarCanvas";
 import PoseLandmarkManager from "@/class/PoseLandmarkManager";
 import ReadyPlayerCreator from "./ReadyPlayerCreator";
+import { useAvatarStore } from "@/store/AvatarStore";
 
 const PoseLandmarkCanvas = () => {
+    const modelUrl = useAvatarStore((state) => state.modelUrl);
+    const setModelUrl = useAvatarStore((state) => state.setModelUrl);
+    const toggleAvatarCreatorView = useAvatarStore(
+        (state) => state.toggleAvatarCreatorView
+    );
+    const showAvatarCreator = useAvatarStore(
+        (state) => state.showAvatarCreator
+    );
+
     const videoRef = useRef<HTMLVideoElement>(null);
     const lastVideoTimeRef = useRef(-1);
     const requestRef = useRef(0);
     const [avatarView, setAvatarView] = useState(true);
-    const [showAvatarCreator, setShowAvatarCreator] = useState(false);
-    const [modelUrl, setModelUrl] = useState("/assets/demo/model.glb");
+    // const [showAvatarCreator, setShowAvatarCreator] = useState(false);
+    // const [modelUrl, setModelUrl] = useState("/assets/demo/model.glb");
     const [videoSize, setVideoSize] = useState<{
         width: number;
         height: number;
     }>();
 
-    const toggleAvatarView = () => setAvatarView((prev) => !prev);
-    const toggleAvatarCreatorView = () => setShowAvatarCreator((prev) => !prev);
+    // const toggleAvatarView = () => setAvatarView((prev) => !prev);
+    // const toggleAvatarCreatorView = () => setShowAvatarCreator((prev) => !prev);
     const handleAvatarCreationComplete = (url: string) => {
         setModelUrl(url);
         toggleAvatarCreatorView();
@@ -50,28 +60,28 @@ const PoseLandmarkCanvas = () => {
             height: 9 * 80,
         });
 
-        requestRef.current = requestAnimationFrame(animate);
+        // requestRef.current = requestAnimationFrame(animate);
 
-        return () => cancelAnimationFrame(requestRef.current);
+        // return () => cancelAnimationFrame(requestRef.current);
     }, []);
 
     return (
         <div className="flex flex-col items-center">
             <div className="flex justify-center gap-10 mt-5 mb-10">
-                <button
+                {/* <button
                     className="hover:bg-purple-600 sm:text-base self-end px-2 py-1 mb-2 text-sm text-white transition bg-purple-700 rounded shadow-md"
                     onClick={toggleAvatarView}
                 >
                     {avatarView
                         ? "Switch to Landmark View"
                         : "Switch to Avatar View"}
-                </button>
-                <button
+                </button> */}
+                {/* <button
                     className="hover:bg-purple-600 sm:text-base self-end px-2 py-1 mb-2 text-sm text-white transition bg-purple-700 rounded shadow-md"
                     onClick={toggleAvatarCreatorView}
                 >
                     {"Customize your Avatar!"}
-                </button>
+                </button> */}
             </div>
             <div className="flex justify-center">
                 <video
