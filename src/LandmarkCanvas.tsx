@@ -196,6 +196,13 @@ function LandmarkCanvas() {
                     >
                         What's Your Name?
                     </button>
+
+                    <button
+                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        onClick={() => setInput("happybirthday.mp4")}
+                    >
+                        Happy Birthday!
+                    </button>
                     <button
                         className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
                         onClick={() => setInput("10000.mp4")}
