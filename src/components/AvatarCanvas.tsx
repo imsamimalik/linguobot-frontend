@@ -4,6 +4,9 @@ import AvatarManager from "@/class/AvatarManager";
 import { OrbitControls } from "@react-three/drei";
 import PoseLandmarkManager from "@/class/PoseLandmarkManager";
 import { Float, Text3D } from "@react-three/drei";
+import { useAvatarStore } from "@/store/AvatarStore";
+import { Avatar } from "./Avatar";
+import { useAnimationStore } from "@/store/AnimationStore";
 
 interface AvatarCanvasProps {
     width: number;
@@ -16,6 +19,9 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
     const [isLoading, setIsLoading] = useState(true);
     const avatarManagerRef = useRef<AvatarManager>(AvatarManager.getInstance());
     const requestRef = useRef(0);
+
+    const modelUrl = useAvatarStore((state) => state.modelUrl);
+    const setAnimation = useAnimationStore((state) => state.setAnimation);
 
     // const animate = () => {
     //     const results = PoseLandmarkManager.getInstance().getResults();
@@ -57,12 +63,18 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
                     enableZoom={true}
                     enablePan={true}
                 />
-                {scene && <primitive object={scene} />}
+                {modelUrl === "/assets/demo/model.glb" ? (
+                    <Avatar />
+                ) : (
+                    !isLoading && scene && <primitive object={scene} />
+                )}
+
+                {/* {scene && <primitive object={scene} />} */}
                 {isLoading && (
                     <Float floatIntensity={1} speed={1}>
                         <Text3D
                             font={"/assets/fonts/Open_Sans_Condensed_Bold.json"}
-                            scale={0.05}
+                            scale={0.1}
                             position={[-0.1, 0.6, 0]}
                             bevelEnabled
                             bevelSize={0.05}
@@ -73,6 +85,30 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
                     </Float>
                 )}
             </Canvas>
+
+            <div className="flex items-center justify-center mt-10">
+                <div className="flex items-center gap-6">
+                    <button
+                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        onClick={() => setAnimation("Hi!")}
+                    >
+                        Hi!
+                    </button>
+
+                    <button
+                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        onClick={() => setAnimation("happybirthday")}
+                    >
+                        Happy Birthday!
+                    </button>
+                    <button
+                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        onClick={() => setAnimation("10,000")}
+                    >
+                        10000
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };

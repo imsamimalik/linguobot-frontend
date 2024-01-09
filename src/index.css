@@ -5,3 +5,7 @@
 body {
     @apply bg-black/75;
 }
+
+.absoluteCenter {
+    @apply left-1/2 top-1/2 absolute transform -translate-x-1/2 -translate-y-1/2;
+}

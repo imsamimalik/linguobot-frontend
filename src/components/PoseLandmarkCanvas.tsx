@@ -67,22 +67,6 @@ const PoseLandmarkCanvas = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="flex justify-center gap-10 mt-5 mb-10">
-                {/* <button
-                    className="hover:bg-purple-600 sm:text-base self-end px-2 py-1 mb-2 text-sm text-white transition bg-purple-700 rounded shadow-md"
-                    onClick={toggleAvatarView}
-                >
-                    {avatarView
-                        ? "Switch to Landmark View"
-                        : "Switch to Avatar View"}
-                </button> */}
-                {/* <button
-                    className="hover:bg-purple-600 sm:text-base self-end px-2 py-1 mb-2 text-sm text-white transition bg-purple-700 rounded shadow-md"
-                    onClick={toggleAvatarCreatorView}
-                >
-                    {"Customize your Avatar!"}
-                </button> */}
-            </div>
             <div className="flex justify-center">
                 <video
                     className="w-full h-auto opacity-0"

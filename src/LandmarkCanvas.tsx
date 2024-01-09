@@ -18,8 +18,12 @@ function LandmarkCanvas() {
     const [input, setInput] = useState("");
     const [holistic, setHolistic] = useState<Holistic | null>(null);
 
+    const [loading, setLoading] = useState(true);
+
     const onResults = (results: Results) => {
         if (!webcamRef.current || !canvasRef.current) return;
+        setLoading(false);
+        webcamRef.current.play();
         canvasRef.current.width = 1080;
         canvasRef.current.height = 720;
 
@@ -63,8 +67,6 @@ function LandmarkCanvas() {
 
     const animate = async () => {
         if (webcamRef.current !== null && holistic !== null) {
-            webcamRef.current.play();
-
             try {
                 await holistic.send({ image: webcamRef.current });
             } catch (e) {
@@ -79,7 +81,6 @@ function LandmarkCanvas() {
         const newHolistic = new Holistic({
             locateFile: (file: string) => {
                 return `${URL}/holistic/${file}`;
-                // return `/holistic/${file}`;
             },
         });
 
@@ -101,6 +102,8 @@ function LandmarkCanvas() {
             if (holistic) {
                 holistic.close();
             }
+            webcamRef.current!.pause();
+            setLoading(true);
 
             const newHolistic = new Holistic({
                 locateFile: (file: string) => {
@@ -175,6 +178,10 @@ function LandmarkCanvas() {
                     height: 720,
                 }}
             />
+
+            <h3 className="absoluteCenter text-xl font-bold text-white">
+                {input !== "" && loading && "Loading Model..."}
+            </h3>
 
             <div className="flex items-center justify-center mt-10">
                 <div className="flex items-center gap-6">
