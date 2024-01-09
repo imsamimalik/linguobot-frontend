@@ -179,39 +179,49 @@ function LandmarkCanvas() {
                 }}
             />
 
-            <h3 className="absoluteCenter text-xl font-bold text-white">
+            <h3 className="absoluteCenter text-2xl font-bold text-white">
                 {input !== "" && loading && "Loading Model..."}
             </h3>
 
             <div className="flex items-center justify-center mt-10">
                 <div className="flex items-center gap-6">
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-white border-2 border-blue-500 rounded-full ${
+                            input === "hi.mp4" && "bg-blue-700"
+                        }`}
                         onClick={() => setInput("hi.mp4")}
                     >
                         Hi!
                     </button>
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-white border-2 border-blue-500 rounded-full ${
+                            input === "howareyou.mp4" && "bg-blue-700"
+                        }`}
                         onClick={() => setInput("howareyou.mp4")}
                     >
                         How Are You?
                     </button>
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-white border-2 border-blue-500 rounded-full ${
+                            input === "whatsyourname.mp4" && "bg-blue-700"
+                        }`}
                         onClick={() => setInput("whatsyourname.mp4")}
                     >
                         What's Your Name?
                     </button>
 
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-white border-2 border-blue-500 rounded-full ${
+                            input === "happybirthday.mp4" && "bg-blue-700"
+                        }`}
                         onClick={() => setInput("happybirthday.mp4")}
                     >
                         Happy Birthday!
                     </button>
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-white border-2 border-blue-500 rounded-full ${
+                            input === "10000.mp4" && "bg-blue-700"
+                        }`}
                         onClick={() => setInput("10000.mp4")}
                     >
                         10000

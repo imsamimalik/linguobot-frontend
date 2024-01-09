@@ -4,6 +4,7 @@ import AvatarCanvas from "./AvatarCanvas";
 import PoseLandmarkManager from "@/class/PoseLandmarkManager";
 import ReadyPlayerCreator from "./ReadyPlayerCreator";
 import { useAvatarStore } from "@/store/AvatarStore";
+import { useAnimationStore } from "@/store/AnimationStore";
 
 const PoseLandmarkCanvas = () => {
     const modelUrl = useAvatarStore((state) => state.modelUrl);
@@ -14,6 +15,7 @@ const PoseLandmarkCanvas = () => {
     const showAvatarCreator = useAvatarStore(
         (state) => state.showAvatarCreator
     );
+    const setAnimation = useAnimationStore((state) => state.setAnimation);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const lastVideoTimeRef = useRef(-1);
@@ -30,6 +32,7 @@ const PoseLandmarkCanvas = () => {
     // const toggleAvatarCreatorView = () => setShowAvatarCreator((prev) => !prev);
     const handleAvatarCreationComplete = (url: string) => {
         setModelUrl(url);
+        setAnimation("")
         toggleAvatarCreatorView();
     };
 

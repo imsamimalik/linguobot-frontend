@@ -22,6 +22,7 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
 
     const modelUrl = useAvatarStore((state) => state.modelUrl);
     const setAnimation = useAnimationStore((state) => state.setAnimation);
+    const animation = useAnimationStore((state) => state.animation);
 
     // const animate = () => {
     //     const results = PoseLandmarkManager.getInstance().getResults();
@@ -89,20 +90,26 @@ const AvatarCanvas = ({ width, height, url }: AvatarCanvasProps) => {
             <div className="flex items-center justify-center mt-10">
                 <div className="flex items-center gap-6">
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-black border-2 border-blue-500 rounded-full ${
+                            animation === "Hi!" && "bg-blue-700 text-white"
+                        }`}
                         onClick={() => setAnimation("Hi!")}
                     >
                         Hi!
                     </button>
 
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-black border-2 border-blue-500 rounded-full ${
+                            animation === "happybirthday" && "bg-blue-700 text-white"
+                        }`}
                         onClick={() => setAnimation("happybirthday")}
                     >
                         Happy Birthday!
                     </button>
                     <button
-                        className="hover:bg-blue-700 px-4 py-2 font-bold text-white bg-blue-500 rounded-full"
+                        className={`hover:bg-blue-500 px-4 py-2 font-bold text-black border-2 border-blue-500 rounded-full ${
+                            animation === "10,000" && "bg-blue-700 text-white"
+                        }`}
                         onClick={() => setAnimation("10,000")}
                     >
                         10000
