@@ -9,7 +9,7 @@ import {
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 
 let URL = "https://cdn.jsdelivr.net/npm/@mediapipe";
-URL = "";
+// URL = "";
 
 function LandmarkCanvas() {
     const webcamRef = useRef<HTMLVideoElement>(null);
