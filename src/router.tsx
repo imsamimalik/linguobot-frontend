@@ -1,15 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LandmarkCanvas from "./LandmarkCanvas";
-import App from "./App";
-import Header from "./components/Header";
+import Home from "@/pages/Home";
+import Layout from "@/components/Layout";
 
 const Router = () => {
     return (
         <BrowserRouter>
-            <Header />
             <Routes>
-                <Route path="/avatar" element={<App />} />
-                <Route path="/" element={<LandmarkCanvas />} />
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );

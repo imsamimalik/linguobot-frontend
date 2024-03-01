@@ -1,4 +1,4 @@
-import PoseLandmarkManager from "@/class/PoseLandmarkManager";
+import HolisticLandmarkManager from "@/class/LandmarkManager";
 import { useEffect, useRef } from "react";
 
 interface DrawLandmarkCanvasProps {
@@ -13,8 +13,8 @@ const DrawLandmarkCanvas = ({ width, height }: DrawLandmarkCanvasProps) => {
         if (drawCanvasRef.current) {
             drawCanvasRef.current.width = width;
             drawCanvasRef.current.height = height;
-            const faceLandmarkManager = PoseLandmarkManager.getInstance();
-            faceLandmarkManager.drawLandmarks(drawCanvasRef.current);
+            const landmarker = HolisticLandmarkManager.getInstance();
+            landmarker.drawLandmarks(drawCanvasRef.current);
         }
         requestRef.current = requestAnimationFrame(animate);
     };
@@ -26,8 +26,8 @@ const DrawLandmarkCanvas = ({ width, height }: DrawLandmarkCanvasProps) => {
 
     return (
         <canvas
-            className="absolute"
-            style={{ width: width, height: height, transform: "scaleX(-1)" }}
+            className="size-full"
+            style={{ transform: "scaleX(-1)" }}
             ref={drawCanvasRef}
         ></canvas>
     );

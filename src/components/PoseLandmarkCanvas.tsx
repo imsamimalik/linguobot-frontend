@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import DrawLandmarkCanvas from "./DrawLandmarkCanvas";
 import AvatarCanvas from "./AvatarCanvas";
-import PoseLandmarkManager from "@/class/PoseLandmarkManager";
+import HolisticLandmarkManager from "@/class/LandmarkManager";
 import ReadyPlayerCreator from "./ReadyPlayerCreator";
 import { useAvatarStore } from "@/store/AvatarStore";
-import { useAnimationStore } from "@/store/AnimationStore";
 
 const PoseLandmarkCanvas = () => {
     const modelUrl = useAvatarStore((state) => state.modelUrl);
@@ -15,7 +14,6 @@ const PoseLandmarkCanvas = () => {
     const showAvatarCreator = useAvatarStore(
         (state) => state.showAvatarCreator
     );
-    const setAnimation = useAnimationStore((state) => state.setAnimation);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const lastVideoTimeRef = useRef(-1);
@@ -32,7 +30,6 @@ const PoseLandmarkCanvas = () => {
     // const toggleAvatarCreatorView = () => setShowAvatarCreator((prev) => !prev);
     const handleAvatarCreationComplete = (url: string) => {
         setModelUrl(url);
-        setAnimation("")
         toggleAvatarCreatorView();
     };
 
@@ -43,7 +40,8 @@ const PoseLandmarkCanvas = () => {
         ) {
             lastVideoTimeRef.current = videoRef.current.currentTime;
             try {
-                const faceLandmarkManager = PoseLandmarkManager.getInstance();
+                const faceLandmarkManager =
+                    HolisticLandmarkManager.getInstance();
                 faceLandmarkManager.detectLandmarks(
                     videoRef.current,
                     performance.now()
@@ -59,27 +57,27 @@ const PoseLandmarkCanvas = () => {
         setVideoSize({
             // width: videoRef.current!.offsetWidth,
             // height: videoRef.current!.offsetHeight,
-            width: 16 * 80,
-            height: 9 * 80,
+            width: 16 * 70,
+            height: 9 * 70,
         });
 
-        // requestRef.current = requestAnimationFrame(animate);
+        requestRef.current = requestAnimationFrame(animate);
 
-        // return () => cancelAnimationFrame(requestRef.current);
+        return () => cancelAnimationFrame(requestRef.current);
     }, []);
 
     return (
-        <div className="flex flex-col items-center">
-            <div className="flex justify-center">
+        <div className="size-full flex flex-col items-center">
+            <div className="size-full flex justify-center">
                 <video
-                    className="w-full h-auto opacity-0"
+                    className="bottom-2 right-2 absolute w-[200px]"
                     ref={videoRef}
                     loop={true}
                     muted={true}
                     autoPlay={true}
                     playsInline={true}
                 >
-                    <source src="/assets/demo/test2.mp4" type="video/mp4" />
+                    <source src="/assets/demo/howareyou.mp4" type="video/mp4" />
                 </video>
                 {videoSize && (
                     <>
@@ -91,11 +89,7 @@ const PoseLandmarkCanvas = () => {
                             />
                         )}
                         {avatarView ? (
-                            <AvatarCanvas
-                                width={videoSize.width}
-                                height={videoSize.height}
-                                url={modelUrl}
-                            />
+                            <AvatarCanvas url={modelUrl} />
                         ) : (
                             <DrawLandmarkCanvas
                                 width={videoSize.width}
