@@ -65,7 +65,7 @@ class HolisticLandmarkManager {
         const drawingUtils = new DrawingUtils(ctx);
 
         // face landmarks
-        const lineWidth = 1.3;
+        const lineWidth = 3;
         for (const landmarks of this.results.faceLandmarks) {
             drawingUtils.drawConnectors(
                 landmarks,
@@ -115,31 +115,25 @@ class HolisticLandmarkManager {
         }
 
         // left hand landmarks
-        for (const landmarks of this.results.leftHandLandmarks) {
-            drawingUtils.drawConnectors(
-                landmarks,
-                HolisticLandmarker.HAND_CONNECTIONS,
-                { color: "#00FF00", lineWidth: lineWidth }
-            );
-        }
+        drawingUtils.drawConnectors(
+            this.results.leftHandLandmarks[0],
+            HolisticLandmarker.HAND_CONNECTIONS,
+            { color: "#00FF00", lineWidth: lineWidth }
+        );
 
         // right hand landmarks
-        for (const landmarks of this.results.rightHandLandmarks) {
-            drawingUtils.drawConnectors(
-                landmarks,
-                HolisticLandmarker.HAND_CONNECTIONS,
-                { color: "#00FF00", lineWidth: lineWidth }
-            );
-        }
+        drawingUtils.drawConnectors(
+            this.results.rightHandLandmarks[0],
+            HolisticLandmarker.HAND_CONNECTIONS,
+            { color: "#00FF00", lineWidth: lineWidth }
+        );
 
         // pose landmarks
-        for (const landmarks of this.results.poseLandmarks) {
-            drawingUtils.drawConnectors(
-                landmarks,
-                HolisticLandmarker.POSE_CONNECTIONS,
-                { color: "#004F00", lineWidth: lineWidth }
-            );
-        }
+        drawingUtils.drawConnectors(
+            this.results.poseLandmarks[0],
+            HolisticLandmarker.POSE_CONNECTIONS.slice(9),
+            { color: "#F00000", lineWidth: lineWidth }
+        );
     };
 }
 

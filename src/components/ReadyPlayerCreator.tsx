@@ -8,25 +8,22 @@ const config: EditorConfig = {
 };
 
 interface ReadyPlayerCreatorProps {
-  width: number;
-  height: number;
-  handleComplete: (url: string) => void;
+    handleComplete: (url: string) => void;
 }
 
-const ReadyPlayerCreator = ({
-  width,
-  height,
-  handleComplete,
-}: ReadyPlayerCreatorProps) => {
-  return (
-    <div className="absolute" style={{ width: width, height: height, zIndex: 1 }}>
-      <AvatarCreator
-        subdomain="demo"
-        editorConfig={config}
-        onAvatarExported={handleComplete}
-      />
-    </div>
-  );
+const ReadyPlayerCreator = ({ handleComplete }: ReadyPlayerCreatorProps) => {
+    return (
+        <div
+            className=" absoluteCenter h-5/6 w-5/6 m-auto"
+            style={{ zIndex: 1 }}
+        >
+            <AvatarCreator
+                subdomain="demo"
+                editorConfig={config}
+                onAvatarExported={handleComplete}
+            />
+        </div>
+    );
 };
 
 export default ReadyPlayerCreator;

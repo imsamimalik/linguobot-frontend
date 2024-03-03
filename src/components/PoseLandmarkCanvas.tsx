@@ -4,34 +4,23 @@ import AvatarCanvas from "./AvatarCanvas";
 import HolisticLandmarkManager from "@/class/LandmarkManager";
 import ReadyPlayerCreator from "./ReadyPlayerCreator";
 import { useAvatarStore } from "@/store/AvatarStore";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
 
 const PoseLandmarkCanvas = () => {
     const modelUrl = useAvatarStore((state) => state.modelUrl);
-    const setModelUrl = useAvatarStore((state) => state.setModelUrl);
-    const toggleAvatarCreatorView = useAvatarStore(
-        (state) => state.toggleAvatarCreatorView
-    );
-    const showAvatarCreator = useAvatarStore(
-        (state) => state.showAvatarCreator
-    );
+
+    const avatarMode = useAvatarStore((state) => state.avatarMode);
+    const toggleAvatarMode = useAvatarStore((state) => state.toggleAvatarMode);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const lastVideoTimeRef = useRef(-1);
     const requestRef = useRef(0);
-    const [avatarView, setAvatarView] = useState(true);
-    // const [showAvatarCreator, setShowAvatarCreator] = useState(false);
-    // const [modelUrl, setModelUrl] = useState("/assets/demo/model.glb");
+
     const [videoSize, setVideoSize] = useState<{
         width: number;
         height: number;
     }>();
-
-    // const toggleAvatarView = () => setAvatarView((prev) => !prev);
-    // const toggleAvatarCreatorView = () => setShowAvatarCreator((prev) => !prev);
-    const handleAvatarCreationComplete = (url: string) => {
-        setModelUrl(url);
-        toggleAvatarCreatorView();
-    };
 
     const animate = () => {
         if (
@@ -68,27 +57,20 @@ const PoseLandmarkCanvas = () => {
 
     return (
         <div className="size-full flex flex-col items-center">
-            <div className="size-full flex justify-center">
-                <video
-                    className="bottom-2 right-2 absolute w-[200px]"
-                    ref={videoRef}
-                    loop={true}
-                    muted={true}
-                    autoPlay={true}
-                    playsInline={true}
-                >
-                    <source src="/assets/demo/howareyou.mp4" type="video/mp4" />
-                </video>
+            <video
+                className="bottom-2 right-2 absolute w-[200px]"
+                ref={videoRef}
+                loop={true}
+                muted={true}
+                autoPlay={true}
+                playsInline={true}
+            >
+                <source src="/assets/demo/howareyou.mp4" type="video/mp4" />
+            </video>
+            <div className="size-full relative flex justify-center">
                 {videoSize && (
                     <>
-                        {showAvatarCreator && (
-                            <ReadyPlayerCreator
-                                width={videoSize.width}
-                                height={videoSize.height}
-                                handleComplete={handleAvatarCreationComplete}
-                            />
-                        )}
-                        {avatarView ? (
+                        {avatarMode ? (
                             <AvatarCanvas url={modelUrl} />
                         ) : (
                             <DrawLandmarkCanvas
@@ -98,6 +80,20 @@ const PoseLandmarkCanvas = () => {
                         )}
                     </>
                 )}
+                <div className="-bottom-10 absolute right-0 flex items-center p-2 space-x-2">
+                    <Label className="text-xs" htmlFor="mode">
+                        Skeleton
+                    </Label>
+                    <Switch
+                        className="scale-75"
+                        checked={avatarMode}
+                        onCheckedChange={toggleAvatarMode}
+                        id="mode"
+                    />
+                    <Label className="text-xs" htmlFor="mode">
+                        Avatar
+                    </Label>
+                </div>
             </div>
         </div>
     );

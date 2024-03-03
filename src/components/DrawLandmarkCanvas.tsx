@@ -26,7 +26,7 @@ const DrawLandmarkCanvas = ({ width, height }: DrawLandmarkCanvasProps) => {
 
     return (
         <canvas
-            className="size-full"
+            className="w-full"
             style={{ transform: "scaleX(-1)" }}
             ref={drawCanvasRef}
         ></canvas>

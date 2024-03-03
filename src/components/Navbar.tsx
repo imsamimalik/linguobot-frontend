@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { useAvatarStore } from "@/store/AvatarStore";
 
 const Header = ({ className }: { className?: string }) => {
+    const toggleAvatarCreatorView = useAvatarStore(
+        (state) => state.toggleAvatarCreatorView
+    );
+
     return (
         <nav
             className={cn(
@@ -23,7 +28,7 @@ const Header = ({ className }: { className?: string }) => {
                     <Button
                         type="button"
                         // className="hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg"
-                        // onClick={toggleAvatarCreatorView}
+                        onClick={toggleAvatarCreatorView}
                     >
                         Customize
                     </Button>

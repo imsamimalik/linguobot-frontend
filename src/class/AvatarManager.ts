@@ -53,7 +53,8 @@ class AvatarManager {
     animateBody = (results: HolisticLandmarkerResult) => {
         if (!results || !this.isModelLoaded) return;
 
-        console.log({ results });
+        // console.log({ results });
+        return;
 
         let riggedPose, riggedLeftHand, riggedRightHand, riggedFace;
         const pose2DLandmarks = results.poseLandmarks;
