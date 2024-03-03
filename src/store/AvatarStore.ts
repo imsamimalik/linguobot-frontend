@@ -20,10 +20,11 @@ export const useAvatarStore = create<StoreType>((set) => ({
     input: "",
     setInput: (input) => set({ input }),
 
-    modelUrl: "/assets/demo/model.glb",
+    modelUrl:
+        "https://models.readyplayer.me/65c0915599ee375dcfb82b6f.glb?morphTargets=ARKit",
     setModelUrl: (modelUrl) => set({ modelUrl }),
 
-    avatarMode: false,
+    avatarMode: true,
     toggleAvatarMode: () => set((state) => ({ avatarMode: !state.avatarMode })),
 
     showAvatarCreator: false,

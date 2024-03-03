@@ -76,4 +76,8 @@
   .absoluteCenter {
     @apply absolute inset-0 flex items-center justify-center;
   }
+
+  body {
+    font-family: "Inter", sans-serif;
+  }
 }

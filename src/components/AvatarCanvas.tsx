@@ -46,7 +46,7 @@ const AvatarCanvas = ({ url }: AvatarCanvasProps) => {
 
     return (
         <div className="size-full">
-            <Canvas camera={{ fov: 63, position: [0.0, 1.4, 1.7] }}>
+            <Canvas camera={{ fov: 63, position: [0.0, 1.6, 1.7] }}>
                 <ambientLight intensity={2} />
                 <directionalLight position={[0, 0, 5]} intensity={2} />
                 <OrbitControls

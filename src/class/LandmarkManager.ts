@@ -29,7 +29,7 @@ class HolisticLandmarkManager {
             {
                 baseOptions: {
                     modelAssetPath: `https://storage.googleapis.com/mediapipe-models/holistic_landmarker/holistic_landmarker/float16/latest/holistic_landmarker.task`,
-                    delegate: "GPU",
+                    // delegate: "GPU",
                 },
 
                 minFaceDetectionConfidence: 0.5,
@@ -37,6 +37,7 @@ class HolisticLandmarkManager {
                 minFacePresenceConfidence: 0.5,
                 minPosePresenceConfidence: 0.5,
                 minHandLandmarksConfidence: 0.5,
+                outputFaceBlendshapes: true,
                 runningMode: "VIDEO",
             }
         );
@@ -66,6 +67,10 @@ class HolisticLandmarkManager {
 
         // face landmarks
         const lineWidth = 3;
+
+        const leftEye = "#FF3030";
+        const rightEye = "#FF3030";
+
         for (const landmarks of this.results.faceLandmarks) {
             drawingUtils.drawConnectors(
                 landmarks,
@@ -75,22 +80,32 @@ class HolisticLandmarkManager {
             drawingUtils.drawConnectors(
                 landmarks,
                 HolisticLandmarker.FACE_LANDMARKS_RIGHT_EYE,
-                { color: "#FF3030", lineWidth: lineWidth }
+                { color: rightEye, lineWidth: lineWidth }
             );
             drawingUtils.drawConnectors(
                 landmarks,
                 HolisticLandmarker.FACE_LANDMARKS_RIGHT_EYEBROW,
-                { color: "#FF3030", lineWidth: lineWidth }
+                { color: rightEye, lineWidth: lineWidth }
+            );
+            drawingUtils.drawConnectors(
+                landmarks,
+                HolisticLandmarker.FACE_LANDMARKS_RIGHT_IRIS,
+                { color: rightEye, lineWidth: lineWidth }
             );
             drawingUtils.drawConnectors(
                 landmarks,
                 HolisticLandmarker.FACE_LANDMARKS_LEFT_EYE,
-                { color: "#30FF30", lineWidth: lineWidth }
+                { color: leftEye, lineWidth: lineWidth }
             );
             drawingUtils.drawConnectors(
                 landmarks,
                 HolisticLandmarker.FACE_LANDMARKS_LEFT_EYEBROW,
-                { color: "#30FF30", lineWidth: lineWidth }
+                { color: leftEye, lineWidth: lineWidth }
+            );
+            drawingUtils.drawConnectors(
+                landmarks,
+                HolisticLandmarker.FACE_LANDMARKS_LEFT_IRIS,
+                { color: leftEye, lineWidth: lineWidth }
             );
             drawingUtils.drawConnectors(
                 landmarks,
@@ -100,17 +115,7 @@ class HolisticLandmarkManager {
             drawingUtils.drawConnectors(
                 landmarks,
                 HolisticLandmarker.FACE_LANDMARKS_LIPS,
-                { color: "#E0E0E0", lineWidth: lineWidth }
-            );
-            drawingUtils.drawConnectors(
-                landmarks,
-                HolisticLandmarker.FACE_LANDMARKS_RIGHT_IRIS,
-                { color: "#FF3030", lineWidth: lineWidth }
-            );
-            drawingUtils.drawConnectors(
-                landmarks,
-                HolisticLandmarker.FACE_LANDMARKS_LEFT_IRIS,
-                { color: "#30FF30", lineWidth: lineWidth }
+                { color: "#8e2710", lineWidth: lineWidth }
             );
         }
 
@@ -118,20 +123,26 @@ class HolisticLandmarkManager {
         drawingUtils.drawConnectors(
             this.results.leftHandLandmarks[0],
             HolisticLandmarker.HAND_CONNECTIONS,
-            { color: "#00FF00", lineWidth: lineWidth }
+            { color: "#212121", lineWidth: lineWidth }
         );
 
         // right hand landmarks
         drawingUtils.drawConnectors(
             this.results.rightHandLandmarks[0],
             HolisticLandmarker.HAND_CONNECTIONS,
-            { color: "#00FF00", lineWidth: lineWidth }
+            { color: "#212121", lineWidth: lineWidth }
         );
 
         // pose landmarks
+        // skip first 9 and then 16,18,20 and 17, 19, 21
+        const toSkip = [0, 1, 2, 3, 4, 5, 6, 7, 8, 13, 14, 15, 18, 19, 20, 21];
+        let filteredPose = HolisticLandmarker.POSE_CONNECTIONS.filter(
+            (_connection, index) => !toSkip.includes(index)
+        );
+
         drawingUtils.drawConnectors(
             this.results.poseLandmarks[0],
-            HolisticLandmarker.POSE_CONNECTIONS.slice(9),
+            filteredPose,
             { color: "#F00000", lineWidth: lineWidth }
         );
     };

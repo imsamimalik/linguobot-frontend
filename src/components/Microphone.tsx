@@ -2,6 +2,12 @@ import { cn } from "@/lib/utils";
 import { useAvatarStore } from "@/store/AvatarStore";
 import { Mic } from "lucide-react";
 import { useState } from "react";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "./ui/tooltip";
 
 const Microphone = () => {
     const setInput = useAvatarStore((state) => state.setInput);
@@ -42,10 +48,10 @@ const Microphone = () => {
     return (
         <Mic
             className={cn(
-                "right-4 bottom-4 absolute cursor-pointer",
-                isListening ? "text-green-500" : "text-slate-500"
+                "hover:text-blue-500 right-2 cursor-pointer bottom-2 absolute",
+                isListening ? "text-blue-500" : "text-slate-500"
             )}
-            size={32}
+            size={25}
             onClick={toggleListening}
         />
     );

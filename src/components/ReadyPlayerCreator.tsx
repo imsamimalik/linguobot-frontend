@@ -14,7 +14,7 @@ interface ReadyPlayerCreatorProps {
 const ReadyPlayerCreator = ({ handleComplete }: ReadyPlayerCreatorProps) => {
     return (
         <div
-            className=" absoluteCenter h-5/6 w-5/6 m-auto"
+            className=" absoluteCenter z-[100] h-5/6 w-5/6 m-auto"
             style={{ zIndex: 1 }}
         >
             <AvatarCreator
