@@ -201,12 +201,6 @@ class AvatarManager {
 
                 const morphTargetInfluences =
                     obj.morphTargetInfluences as Array<number>;
-
-                console.log({
-                    morphTargetDictionary,
-                    morphTargetInfluences,
-                });
-
                 for (const { score, categoryName } of blendShapes) {
                     let updatedCategoryName = categoryName;
                     if (flipped && categoryName.includes("Left")) {
