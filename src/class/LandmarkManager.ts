@@ -136,14 +136,23 @@ class HolisticLandmarkManager {
         // pose landmarks
         // skip first 9 and then 16,18,20 and 17, 19, 21
         const toSkip = [0, 1, 2, 3, 4, 5, 6, 7, 8, 13, 14, 15, 18, 19, 20, 21];
-        let filteredPose = HolisticLandmarker.POSE_CONNECTIONS.filter(
+        const filteredConns = HolisticLandmarker.POSE_CONNECTIONS.filter(
             (_connection, index) => !toSkip.includes(index)
         );
 
+        // skip toSkip from this.results.poseLandmarks[0]
+        // const newP = [0, 1, 2];
+        // const filteredPose = this.results.poseLandmarks[0].filter(
+        //     (_landmark, index) => !newP.includes(index)
+        // );
+
         drawingUtils.drawConnectors(
             this.results.poseLandmarks[0],
-            filteredPose,
-            { color: "#F00000", lineWidth: lineWidth }
+            filteredConns,
+            {
+                color: "#F00000",
+                lineWidth: lineWidth,
+            }
         );
     };
 }

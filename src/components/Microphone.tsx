@@ -2,17 +2,17 @@ import { cn } from "@/lib/utils";
 import { useAvatarStore } from "@/store/AvatarStore";
 import { Mic } from "lucide-react";
 import { useState } from "react";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "./ui/tooltip";
+// @ts-ignore
+import useSound from "use-sound";
+import MicON from "/assets/audio/ON.mp3";
+import MicOFF from "/assets/audio/OFF.mp3";
 
 const Microphone = () => {
-    const setInput = useAvatarStore((state) => state.setInput);
+    const setVoiceInput = useAvatarStore((state) => state.setVoiceInput);
 
     const [isListening, setIsListening] = useState(false);
+    const [playMicSound] = useSound(MicON);
+    const [stopMicSound] = useSound(MicOFF);
 
     const recognition = new window.webkitSpeechRecognition();
     // recognition.lang = "ur-PK";
@@ -20,12 +20,14 @@ const Microphone = () => {
     // Event handler for when speech recognition starts
     recognition.onstart = () => {
         console.log("Speech recognition started");
+        playMicSound();
         setIsListening(true);
     };
 
     // Event handler for when speech recognition ends
     recognition.onend = () => {
         console.log("Speech recognition ended");
+        stopMicSound();
         setIsListening(false);
     };
 
@@ -33,8 +35,8 @@ const Microphone = () => {
     recognition.onresult = async (event) => {
         const transcript = event.results[0][0].transcript;
         console.log("Speech recognized:", transcript);
-
-        setInput(transcript);
+        // appends the recognized speech to the input with a space
+        setVoiceInput((prev) => prev + " " + transcript);
     };
     // Function to start/stop speech recognition
     const toggleListening = () => {

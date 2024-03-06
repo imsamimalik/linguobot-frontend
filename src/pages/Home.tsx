@@ -12,6 +12,7 @@ const Home = () => {
     const input = useAvatarStore((state) => state.input);
     const setInput = useAvatarStore((state) => state.setInput);
 
+
     return (
         <section className="flex my-10 border rounded-lg mx-auto w-11/12 justify-center items-center md:h-[600px]">
             <ResizablePanelGroup
