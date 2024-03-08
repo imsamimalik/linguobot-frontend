@@ -8,7 +8,7 @@ import MicON from "/assets/audio/ON.mp3";
 import MicOFF from "/assets/audio/OFF.mp3";
 
 const Microphone = () => {
-    const setVoiceInput = useAvatarStore((state) => state.setVoiceInput);
+    const setInput = useAvatarStore((state) => state.setInput);
 
     const [isListening, setIsListening] = useState(false);
     const [playMicSound] = useSound(MicON);
@@ -36,7 +36,7 @@ const Microphone = () => {
         const transcript = event.results[0][0].transcript;
         console.log("Speech recognized:", transcript);
         // appends the recognized speech to the input with a space
-        setVoiceInput((prev) => prev + " " + transcript);
+        setInput(transcript);
     };
     // Function to start/stop speech recognition
     const toggleListening = () => {

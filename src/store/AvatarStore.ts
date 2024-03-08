@@ -15,6 +15,12 @@ type StoreType = {
     setShowAvatarCreator: (isModalShown: boolean) => void;
 
     toggleAvatarCreatorView: () => void;
+
+    videoURL: string;
+    setVideoURL: (videoURL: string) => void;
+
+    loading: boolean;
+    setLoading: (loading: boolean) => void;
 };
 
 export const useAvatarStore = create<StoreType>((set) => ({
@@ -34,4 +40,10 @@ export const useAvatarStore = create<StoreType>((set) => ({
 
     toggleAvatarCreatorView: () =>
         set((state) => ({ showAvatarCreator: !state.showAvatarCreator })),
+
+    videoURL: "/assets/demo/howareyou.mp4",
+    setVideoURL: (videoURL) => set({ videoURL }),
+
+    loading: false,
+    setLoading: (loading) => set({ loading }),
 }));

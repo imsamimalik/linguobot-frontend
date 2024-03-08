@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import DrawLandmarkCanvas from "./DrawLandmarkCanvas";
 import AvatarCanvas from "./AvatarCanvas";
 import HolisticLandmarkManager from "@/class/LandmarkManager";
-import ReadyPlayerCreator from "./ReadyPlayerCreator";
 import { useAvatarStore } from "@/store/AvatarStore";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
@@ -12,6 +11,7 @@ const PoseLandmarkCanvas = () => {
 
     const avatarMode = useAvatarStore((state) => state.avatarMode);
     const toggleAvatarMode = useAvatarStore((state) => state.toggleAvatarMode);
+    const videoURL = useAvatarStore((state) => state.videoURL);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const lastVideoTimeRef = useRef(-1);
@@ -29,18 +29,34 @@ const PoseLandmarkCanvas = () => {
         ) {
             lastVideoTimeRef.current = videoRef.current.currentTime;
             try {
-                const faceLandmarkManager =
-                    HolisticLandmarkManager.getInstance();
-                faceLandmarkManager.detectLandmarks(
+                const landmarkManager = HolisticLandmarkManager.getInstance();
+                landmarkManager.detectLandmarks(
                     videoRef.current,
                     performance.now()
                 );
             } catch (e) {
-                console.log(e);
+                console.log("PoseLandmarkCanvas.tsx ==>> ", e);
             }
         }
         requestRef.current = requestAnimationFrame(animate);
     };
+
+    useEffect(() => {
+        if (videoURL) {
+            // cancelAnimationFrame(requestRef.current);
+            const video = videoRef.current;
+            video!.load();
+            video!.play().then(() => {
+                animate();
+            });
+
+            return () => {
+                video!.pause();
+                video!.removeAttribute("src");
+                video!.load();
+            };
+        }
+    }, [videoURL]);
 
     useEffect(() => {
         setVideoSize({
@@ -64,8 +80,12 @@ const PoseLandmarkCanvas = () => {
                 muted={true}
                 autoPlay={true}
                 playsInline={true}
+                crossOrigin="anonymous"
+                style={{
+                    opacity: videoURL === "/assets/demo/howareyou.mp4" ? 0 : 1,
+                }}
             >
-                <source src="/assets/demo/howareyou.mp4" type="video/mp4" />
+                <source src={videoURL} type="video/mp4" />
             </video>
             <div className="size-full relative flex justify-center">
                 {videoSize && (
