@@ -15,6 +15,10 @@ class HolisticLandmarkManager {
         this.initializeModel();
     }
 
+    close = () => {
+        HolisticLandmarkManager.instance.holisticLandmarker?.close();
+    };
+
     static getInstance(): HolisticLandmarkManager {
         return HolisticLandmarkManager.instance;
     }

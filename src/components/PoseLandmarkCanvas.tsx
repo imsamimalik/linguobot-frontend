@@ -22,6 +22,7 @@ const PoseLandmarkCanvas = () => {
         height: number;
     }>();
 
+    const landmarkManager = HolisticLandmarkManager.getInstance();
     const animate = () => {
         if (
             videoRef.current &&
@@ -29,7 +30,6 @@ const PoseLandmarkCanvas = () => {
         ) {
             lastVideoTimeRef.current = videoRef.current.currentTime;
             try {
-                const landmarkManager = HolisticLandmarkManager.getInstance();
                 landmarkManager.detectLandmarks(
                     videoRef.current,
                     performance.now()
@@ -42,18 +42,19 @@ const PoseLandmarkCanvas = () => {
     };
 
     useEffect(() => {
-        if (videoURL) {
-            // cancelAnimationFrame(requestRef.current);
+        if (videoURL !== "/assets/demo/howareyou.mp4" && videoRef.current) {
+            cancelAnimationFrame(requestRef.current);
             const video = videoRef.current;
             video!.load();
             video!.play().then(() => {
+                console.log("video is playing");
                 animate();
             });
 
             return () => {
-                video!.pause();
-                video!.removeAttribute("src");
-                video!.load();
+                // video!.pause();
+                // video!.removeAttribute("src");
+                // video!.load();
             };
         }
     }, [videoURL]);
