@@ -21,6 +21,10 @@ type StoreType = {
 
     loading: boolean;
     setLoading: (loading: boolean) => void;
+
+    lang: string;
+    setLang: (lang: string) => void;
+    toggleLang: () => void;
 };
 
 export const useAvatarStore = create<StoreType>((set) => ({
@@ -46,4 +50,9 @@ export const useAvatarStore = create<StoreType>((set) => ({
 
     loading: false,
     setLoading: (loading) => set({ loading }),
+
+    lang: "en",
+    setLang: (lang) => set({ lang }),
+    toggleLang: () =>
+        set((state) => ({ lang: state.lang === "en" ? "ur" : "en" })),
 }));

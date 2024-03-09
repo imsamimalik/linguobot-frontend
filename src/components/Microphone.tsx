@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { useAvatarStore } from "@/store/AvatarStore";
 import { Mic } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // @ts-ignore
 import useSound from "use-sound";
 import MicON from "/assets/audio/ON.mp3";
@@ -9,41 +9,55 @@ import MicOFF from "/assets/audio/OFF.mp3";
 
 const Microphone = () => {
     const setInput = useAvatarStore((state) => state.setInput);
+    const lang = useAvatarStore((state) => state.lang);
 
     const [isListening, setIsListening] = useState(false);
+    const recognition = useRef<SpeechRecognition | null>(null);
     const [playMicSound] = useSound(MicON);
     const [stopMicSound] = useSound(MicOFF);
 
-    const recognition = new window.webkitSpeechRecognition();
-    // recognition.lang = "ur-PK";
+    recognition.current = new window.webkitSpeechRecognition();
 
     // Event handler for when speech recognition starts
-    recognition.onstart = () => {
+    recognition.current.onstart = () => {
         console.log("Speech recognition started");
         playMicSound();
         setIsListening(true);
     };
 
     // Event handler for when speech recognition ends
-    recognition.onend = () => {
+    recognition.current.onend = () => {
         console.log("Speech recognition ended");
         stopMicSound();
         setIsListening(false);
     };
 
     // Event handler for when speech is recognized
-    recognition.onresult = async (event) => {
+    recognition.current.onresult = async (event) => {
         const transcript = event.results[0][0].transcript;
         console.log("Speech recognized:", transcript);
         // appends the recognized speech to the input with a space
         setInput(transcript);
     };
-    // Function to start/stop speech recognition
-    const toggleListening = () => {
-        if (isListening) {
-            recognition.stop();
+
+    // useEffect to set the language of the speech recognition
+
+    useEffect(() => {
+        if (recognition.current === null) return;
+        if (lang === "ur") {
+            recognition.current.lang = "ur-PK";
         } else {
-            recognition.start();
+            recognition.current.lang = "en-US";
+        }
+    }, [lang]);
+
+    const toggleListening = () => {
+        if (recognition.current === null) return;
+
+        if (isListening) {
+            recognition.current.stop();
+        } else {
+            recognition.current.start();
         }
     };
 
