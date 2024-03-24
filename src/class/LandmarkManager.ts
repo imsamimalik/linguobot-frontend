@@ -26,13 +26,13 @@ class HolisticLandmarkManager {
     initializeModel = async () => {
         this.holisticLandmarker = null;
         const filesetResolver = await FilesetResolver.forVisionTasks(
-            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+            "/assets/demo/wasm"
         );
         this.holisticLandmarker = await HolisticLandmarker.createFromOptions(
             filesetResolver,
             {
                 baseOptions: {
-                    modelAssetPath: `https://storage.googleapis.com/mediapipe-models/holistic_landmarker/holistic_landmarker/float16/latest/holistic_landmarker.task`,
+                    modelAssetPath: `/assets/demo/holistic_landmarker.task`,
                     // delegate: "GPU",
                 },
 
