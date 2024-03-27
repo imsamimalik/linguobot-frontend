@@ -29,6 +29,9 @@ type StoreType = {
     devMode: boolean;
     setDevMode: (devMode: boolean) => void;
     toggleDevMode: () => void;
+
+    outputText: string;
+    setOutputText: (outputText: string) => void;
 };
 
 export const useAvatarStore = create<StoreType>((set) => ({
@@ -63,4 +66,7 @@ export const useAvatarStore = create<StoreType>((set) => ({
     devMode: false,
     setDevMode: (devMode) => set({ devMode }),
     toggleDevMode: () => set((state) => ({ devMode: !state.devMode })),
+
+    outputText: "",
+    setOutputText : (outputText) => set({ outputText }),
 }));

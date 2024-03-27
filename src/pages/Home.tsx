@@ -20,9 +20,12 @@ const Home = () => {
     const input = useAvatarStore((state) => state.input);
     const setInput = useAvatarStore((state) => state.setInput);
     const setVideoURL = useAvatarStore((state) => state.setVideoURL);
+    const setOutputText = useAvatarStore((state) => state.setOutputText);
     const setLoading = useAvatarStore((state) => state.setLoading);
     const lang = useAvatarStore((state) => state.lang);
     const toggleLang = useAvatarStore((state) => state.toggleLang);
+    const devMode = useAvatarStore((state) => state.devMode);
+    const outputText = useAvatarStore((state) => state.outputText);
     const [debouncedText] = useDebounce(input, 1000);
 
     const [position, setPosition] = useState("horizontal")
@@ -60,6 +63,7 @@ const Home = () => {
                     );
                     console.log(res.data);
                     setVideoURL(res.data.video);
+                    setOutputText(res.data.sentence)
                 } catch (error) {
                     toast.error("Error in fetching data.Please try again.");
                     console.log("API error: ", error);
@@ -93,6 +97,9 @@ const Home = () => {
 
                         <Microphone />
                     </div>
+                    {devMode && <div className="mt-2 max-w-[35ch] left-2 absolute">
+                        Translated Text: {outputText}
+                    </div>}
                     <div className="-bottom-10 absolute right-0 flex items-center p-2 space-x-2">
                         <Label className="text-xs" htmlFor="lang">
                             English
