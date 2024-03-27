@@ -21,10 +21,7 @@ const PoseLandmarkCanvas = () => {
     const [videoSize, setVideoSize] = useState<{
         width: number;
         height: number;
-    }>({
-        width: 0,
-        height: 0,
-    });
+    }>();
 
     const landmarkManager = HolisticLandmarkManager.getInstance();
     const animate = () => {
