@@ -5,6 +5,7 @@ import HolisticLandmarkManager from "@/class/LandmarkManager";
 import { useAvatarStore } from "@/store/AvatarStore";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
+import toast from 'react-hot-toast';
 
 const PoseLandmarkCanvas = () => {
     const modelUrl = useAvatarStore((state) => state.modelUrl);
@@ -36,6 +37,7 @@ const PoseLandmarkCanvas = () => {
                     performance.now()
                 );
             } catch (e) {
+                toast.error("Error in detecting landmarks");
                 console.log("PoseLandmarkCanvas.tsx ==>> ", e);
             }
         }

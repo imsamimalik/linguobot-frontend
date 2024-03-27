@@ -2,6 +2,7 @@ import { useAvatarStore } from "@/store/AvatarStore";
 import Navbar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import ReadyPlayerCreator from "./ReadyPlayerCreator";
+import { Toaster } from 'react-hot-toast';
 
 const Layout = () => {
     const setModelUrl = useAvatarStore((state) => state.setModelUrl);
@@ -18,6 +19,10 @@ const Layout = () => {
     return (
         <main className="flex flex-col w-full min-h-screen">
             <Navbar />
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+            />
             <div className="flex-1 w-4/5 h-full py-5 mx-auto">
                 <Outlet />
             </div>

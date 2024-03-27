@@ -14,6 +14,7 @@ import axiosInstance from "@/lib/axios";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Direction } from "node_modules/react-resizable-panels/dist/declarations/src/types";
+import toast from "react-hot-toast";
 
 const Home = () => {
     const input = useAvatarStore((state) => state.input);
@@ -24,7 +25,7 @@ const Home = () => {
     const toggleLang = useAvatarStore((state) => state.toggleLang);
     const [debouncedText] = useDebounce(input, 1000);
 
-    const [position, setPosition] = useState("hozontal")
+    const [position, setPosition] = useState("horizontal")
 
     useEffect(() => {
         const handleResize = () => {
@@ -60,6 +61,7 @@ const Home = () => {
                     console.log(res.data);
                     setVideoURL(res.data.video);
                 } catch (error) {
+                    toast.error("Error in fetching data.Please try again.");
                     console.log("API error: ", error);
                 } finally {
                     setLoading(false);
