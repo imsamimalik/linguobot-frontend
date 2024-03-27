@@ -114,7 +114,7 @@ class HolisticLandmarkManager {
             drawingUtils.drawConnectors(
                 landmarks,
                 HolisticLandmarker.FACE_LANDMARKS_FACE_OVAL,
-                { color: "#E0E0E0", lineWidth: lineWidth }
+                { color: "#8e2710", lineWidth: lineWidth }
             );
             drawingUtils.drawConnectors(
                 landmarks,
@@ -127,15 +127,23 @@ class HolisticLandmarkManager {
         drawingUtils.drawConnectors(
             this.results.leftHandLandmarks[0],
             HolisticLandmarker.HAND_CONNECTIONS,
-            { color: "#212121", lineWidth: lineWidth }
+            { color: "#212121", lineWidth: 4 }
         );
+        drawingUtils.drawLandmarks(this.results.leftHandLandmarks[0], {
+            color: "#0f0",
+            radius: 2,
+        });
 
         // right hand landmarks
         drawingUtils.drawConnectors(
             this.results.rightHandLandmarks[0],
             HolisticLandmarker.HAND_CONNECTIONS,
-            { color: "#212121", lineWidth: lineWidth }
+            { color: "#212121", lineWidth: 4 }
         );
+        drawingUtils.drawLandmarks(this.results.rightHandLandmarks[0], {
+            color: "#0f0",
+            radius: 2,
+        });
 
         // pose landmarks
         // skip first 9 and then 16,18,20 and 17, 19, 21

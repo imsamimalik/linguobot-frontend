@@ -12,6 +12,7 @@ const PoseLandmarkCanvas = () => {
     const avatarMode = useAvatarStore((state) => state.avatarMode);
     const toggleAvatarMode = useAvatarStore((state) => state.toggleAvatarMode);
     const videoURL = useAvatarStore((state) => state.videoURL);
+    const devMode = useAvatarStore((state) => state.devMode);
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const lastVideoTimeRef = useRef(-1);
@@ -20,7 +21,10 @@ const PoseLandmarkCanvas = () => {
     const [videoSize, setVideoSize] = useState<{
         width: number;
         height: number;
-    }>();
+    }>({
+        width: 0,
+        height: 0,
+    });
 
     const landmarkManager = HolisticLandmarkManager.getInstance();
     const animate = () => {
@@ -83,7 +87,7 @@ const PoseLandmarkCanvas = () => {
                 playsInline={true}
                 crossOrigin="anonymous"
                 style={{
-                    opacity: videoURL === "/assets/demo/howareyou.mp4" ? 0 : 1,
+                    opacity: (videoURL === "/assets/demo/howareyou.mp4" || !devMode) ? 0 : 1,
                 }}
             >
                 <source src={videoURL} type="video/mp4" />

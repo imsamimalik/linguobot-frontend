@@ -8,11 +8,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useAvatarStore } from "@/store/AvatarStore";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import axiosInstance from "@/lib/axios";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Direction } from "node_modules/react-resizable-panels/dist/declarations/src/types";
 
 const Home = () => {
     const input = useAvatarStore((state) => state.input);
@@ -22,6 +23,26 @@ const Home = () => {
     const lang = useAvatarStore((state) => state.lang);
     const toggleLang = useAvatarStore((state) => state.toggleLang);
     const [debouncedText] = useDebounce(input, 1000);
+
+    const [position, setPosition] = useState("hozontal")
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1000) {
+                setPosition("vertical")
+            } else {
+                setPosition("horizontal")
+            }
+        }
+
+        handleResize()
+
+        window.addEventListener("resize", handleResize)
+
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,10 +75,10 @@ const Home = () => {
     }, [debouncedText]);
 
     return (
-        <section className="flex my-10 border rounded-lg mx-auto w-11/12 justify-center items-center md:h-[600px]">
+        <section className="flex my-10 border rounded-lg mx-auto w-11/12 h-[75vh] justify-center items-center lg:h-[600px]">
             <ResizablePanelGroup
                 className="!overflow-visible"
-                direction="horizontal"
+                direction={position as Direction}
             >
                 <ResizablePanel className="relative !overflow-visible">
                     <div className="size-full relative">

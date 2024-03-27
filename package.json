@@ -26,6 +26,7 @@
         "@react-three/drei": "^9.99.5",
         "@react-three/fiber": "^8.15.16",
         "@readyplayerme/rpm-react-sdk": "^0.1.5",
+        "ahooks": "^3.7.10",
         "axios": "^1.6.7",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",

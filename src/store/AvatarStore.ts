@@ -25,6 +25,10 @@ type StoreType = {
     lang: string;
     setLang: (lang: string) => void;
     toggleLang: () => void;
+
+    devMode: boolean;
+    setDevMode: (devMode: boolean) => void;
+    toggleDevMode: () => void;
 };
 
 export const useAvatarStore = create<StoreType>((set) => ({
@@ -55,4 +59,8 @@ export const useAvatarStore = create<StoreType>((set) => ({
     setLang: (lang) => set({ lang }),
     toggleLang: () =>
         set((state) => ({ lang: state.lang === "en" ? "ur" : "en" })),
+
+    devMode: false,
+    setDevMode: (devMode) => set({ devMode }),
+    toggleDevMode: () => set((state) => ({ devMode: !state.devMode })),
 }));

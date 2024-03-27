@@ -1,12 +1,17 @@
-import PoseLandmarkCanvas from "@/components/PoseLandmarkCanvas";
+import Router from "./router";
+import { useKeyPress } from 'ahooks';
+import { useAvatarStore } from "./store/AvatarStore";
 
 const App = () => {
+
+    const toggleDevMode = useAvatarStore((state) => state.toggleDevMode);
+
+    useKeyPress(['ctrl.alt.k'], () => toggleDevMode(), {
+        exactMatch: true,
+    });
+
     return (
-        <div className="bg-slate-400 flex flex-col items-center min-h-screen px-2 pt-10 text-white">
-            <div className="flex justify-center w-full">
-                <PoseLandmarkCanvas />
-            </div>
-        </div>
+        <Router />
     );
 };
 export default App;
